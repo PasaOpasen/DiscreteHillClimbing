@@ -102,6 +102,8 @@ def Hill_Climbing_descent(function, available_predictors_values, random_counts_b
 
     dim_lengths = np.array([len(arr) for arr in available_predictors_values])
     dim_total = len(dim_lengths)
+    if greedy_step > dim_total or greedy_step < 1:
+        raise Exception(f"greedy_step ({greedy_step}) should be in [1, {dim_total}]")
     predictor_indexes = np.arange(dim_total)
 
     counts_by_predictors = correct_random_counts(random_counts_by_predictors, dim_lengths, dim_total)
@@ -132,7 +134,7 @@ def Hill_Climbing_descent(function, available_predictors_values, random_counts_b
     if maximize:
         best_val *= -1
 
-    return (best_pos, best_val)
+    return (inds_to_vals(best_pos), best_val)
 
 
 
@@ -142,7 +144,7 @@ if __name__ == '__main__':
     f = lambda X: np.sum(X) - X[0]*X[2]
 
     bounds = [
-        np.arange(100),
+        np.arange(100)+100,
         np.arange(100),
         np.arange(100),
         np.arange(100),
