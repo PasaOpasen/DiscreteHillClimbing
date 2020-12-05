@@ -66,7 +66,7 @@ def get_best_choice(func, val, arr, index, available_values_length, count):
 
 
 
-def Hill_Climbing_descent(function, available_predictors_values, random_counts_by_predictors = 3, greedy_step = 1, start_solution = 'random', max_function_evals = 1000, maximize = False):
+def Hill_Climbing_descent(function, available_predictors_values, random_counts_by_predictors = 3, greedy_step = 1, start_solution = 'random', max_function_evals = 1000, maximize = False, seed = None):
     """
     function which makes Hill Climbing descent
 
@@ -87,6 +87,9 @@ def Hill_Climbing_descent(function, available_predictors_values, random_counts_b
     maximize : bool, optional
         maximize the function? (minimize by default). The default is False.
 
+    seed : int or None
+        random seed (None if doesn't matter). The default is None
+
     Returns
     -------
     best_pos : np array
@@ -96,6 +99,10 @@ def Hill_Climbing_descent(function, available_predictors_values, random_counts_b
 
     """
     
+    if not (seed is None):
+        np.random.seed(seed)
+        random.seed(seed)
+
     inds_to_vals = lambda inds: np.array([arr[ind] for arr, ind in zip(available_predictors_values, inds)])
 
     func = (lambda x: -function(inds_to_vals(x))) if maximize else (lambda x: function(inds_to_vals(x)))
@@ -153,9 +160,9 @@ if __name__ == '__main__':
         np.arange(100)
     ]
 
-v = Hill_Climbing_descent(f, bounds, random_counts_by_predictors = 10, greedy_step=2, max_function_evals= 10000, maximize= True)
+    v = Hill_Climbing_descent(f, bounds, random_counts_by_predictors = 10, greedy_step=2, max_function_evals= 10000, maximize= True)
 
-print(v)
+    print(v)
 
 
 

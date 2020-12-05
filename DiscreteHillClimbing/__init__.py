@@ -1,4 +1,4 @@
 
 
-from DiscreteHillClimbing import Hill_Climbing_descent
+from .DiscreteHillClimbing import Hill_Climbing_descent
 
