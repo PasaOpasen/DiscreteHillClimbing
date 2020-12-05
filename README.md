@@ -34,7 +34,7 @@ Hill Climbing is the prefect baseline when u start to seek solution. It really h
 
 See the main idea of my implementation in this pseudocode:
 
-```ps
+```
 best solution <- start_solution
 best value <- func(start_solution)
 
