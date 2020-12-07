@@ -7,7 +7,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="DiscreteHillClimbing", 
-    version="1.0.0",
+    version="1.0.2",
     author="Demetry Pascal",
     author_email="qtckpuhdsa@gmail.com",
     maintainer = ['Demetry Pascal'],

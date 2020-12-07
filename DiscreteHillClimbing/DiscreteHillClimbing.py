@@ -37,7 +37,7 @@ def correct_start_solution(available_predictors_values, dim_lengths, start_solut
     if len(start_solution) != len(dim_lengths):
         raise Exception("start_solution has incorrect lenght {len(start_solution)}, but there are {len(dim_lengths)} predictors of function")
 
-    return np.array([arr.to_list().index(val) for arr, val in zip(available_predictors_values, start_solution)])
+    return np.array([list(arr).index(int(val)) for arr, val in zip(available_predictors_values, start_solution)])
 
 
 
