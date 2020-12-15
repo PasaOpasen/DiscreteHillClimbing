@@ -2,6 +2,9 @@
 
 [![PyPI
 version](https://badge.fury.io/py/DiscreteHillClimbing.svg)](https://pypi.org/project/DiscreteHillClimbing/)
+[![Downloads](https://pepy.tech/badge/DiscreteHillClimbing)](https://pepy.tech/project/DiscreteHillClimbing)
+[![Downloads](https://pepy.tech/badge/DiscreteHillClimbing/month)](https://pepy.tech/project/DiscreteHillClimbing)
+[![Downloads](https://pepy.tech/badge/DiscreteHillClimbing/week)](https://pepy.tech/project/DiscreteHillClimbing)
 
 This is the implementation of Hill Climbing algorithm for discrete tasks.
 
