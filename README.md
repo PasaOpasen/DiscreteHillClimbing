@@ -1,7 +1,7 @@
 # Discrete Hill Climbing
 
 [![PyPI
-version](https://badge.fury.io/py/DiscreteHillClimbing.svg)](https://pypi.org/project/DicreteHillClimbing/)
+version](https://badge.fury.io/py/DiscreteHillClimbing.svg)](https://pypi.org/project/DiscreteHillClimbing/)
 
 This is the implementation of Hill Climbing algorithm for discrete tasks.
 
