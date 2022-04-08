@@ -18,37 +18,36 @@ pip install DiscreteHillClimbing
   - [Pseudocode](#pseudocode)
   - [Working process](#working-process)
   - [Parameters](#parameters)
-  - [Returns](#returns)
   - [Examples](#examples)
     - [Own random search counts](#own-random-search-counts)
     - [Different greedy steps](#different-greedy-steps)
 
 ## About
 
-[Hill Climbing](https://en.wikipedia.org/wiki/Hill_climbing) is the most simple algorithm for discrete tasks a lot. In discrete tasks each predictor can have it's value from finite set, therefore we can check all values of predictor or some not small random part of it and do optimization by one predictor. After that we can optimize by another predictor and so on. Also we can try to find better solution using 1, 2, 3, ... predictors and choose only the best configuration. 
+[Hill Climbing](https://en.wikipedia.org/wiki/Hill_climbing) (*coordinate minimization*) is the most simple algorithm for discrete tasks a lot (one simpler is only getting best from fully random). In discrete tasks each predictor can have it's value from finite set, therefore we can check all values of predictor (variable) or some not small random part of it and do optimization by one predictor. After that we can optimize by another predictor and so on. Also we can try to find better solution using 1, 2, 3, ... predictors and choose only the best configuration. 
 
-There is a highly variety of ways to realize **hill climbing**, so I tried to make just simple and universal implementation. Assuredly, it can be better to create your implementation for your own task, but this package is a good choice for start.
+There is a highly variety of ways to realize **hill climbing**, so I tried to make just simple and universal implementation. Assuredly, it can be better to create your (faster)implementation depends on specific of ur own task, but this package is a good flexible choice for start.
 
 ## Why Hill Climbing?
 
-Hill Climbing is the prefect baseline when u start to seek solution. It really helps and it really can get u very good result using just 50-200 function evaluations.
+Hill Climbing is the perfect baseline when u start to seek solution. It really helps and it really can get u very good result using just 50-200 function evaluations.
 
 ## Pseudocode
 
 See the main idea of my implementation in this pseudocode:
 
-```
+```c
 best solution <- start_solution
 best value <- func(start_solution)
 
 while functions evaluates_count < max_function_evals:
-    predictors <- get greedy_step random predictors
+    predictors <- get greedy_step random predictors (variables)
     for each predictor from predictors:
-        choose random_counts_by_predictors values from available values for this predictor
+        choose random_counts_by_predictors values from available values of this predictor
         for each chosen value:
             replace predictor value with chosen
             evaluate function
-        remember best result for this predictor
+        remember best result as result of this predictor
     select best predictor with its best configuration
     replace values in solution
     it is new best solution 
@@ -64,7 +63,7 @@ from DiscreteHillClimbing import Hill_Climbing_descent
 
 **Determine optimized function**:
 ```python
-def func(array):
+def func(array: np.ndarray) -> float:
     return (np.sum(array) + np.sum(array**2))/(1 + array[0]*array[1])
 ```
 
@@ -89,7 +88,7 @@ solution, value = Hill_Climbing_descent(function = func,
     available_predictors_values = available_predictors_values,
     random_counts_by_predictors = 4,
     greedy_step = 1,
-    start_solution = 'random',
+    start_solution = None,
     max_function_evals = 1000,
     maximize = False,
     seed = 1)
@@ -104,14 +103,14 @@ print(value)
 ## Parameters
 
 * `function` : func np.array->float/int; callable optimized function uses numpy 1D-array as argument.
-* `available_predictors_values` : list of numpy 1D-arrays
+* `available_predictors_values` : int sequence
         a list of available values for each predictor (each dimention of argument).
-* `random_counts_by_predictors` : int/list/numpy array, optional
+* `random_counts_by_predictors` : int or int sequence, optional
         how many random choices should it use for each variable? Use list/numpy array for select option for each predictor (or int -- one number for each predictor). The default is 3.
 * `greedy_step` : int, optional
         it choices better solution after climbing by greedy_step predictors. The default is 1.
-* `start_solution` : 'random' or list or np array, optional
-        point when the algorithm starts. The default is 'random'.
+* `start_solution` : None or int sequence, optional
+        point when the algorithm starts. The default is None -- random start solution
 * `max_function_evals` : int, optional
         max count of function evaluations. The default is 1000.
 * `maximize` : bool, optional
@@ -119,8 +118,7 @@ print(value)
 
 * `seed` : int or None. Random seed (None if doesn't matter). The default is None
 
-## Returns
-Tuple contained best solution and best function value.
+**Returns**: tuple contained best solution and best function value.
 
 ## Examples
 
@@ -154,7 +152,7 @@ solution, value = Hill_Climbing_descent(function = func,
     available_predictors_values = available_predictors_values,
     random_counts_by_predictors = [4, 5, 2, 20, 20, 3, 6, 6, 4],
     greedy_step = 1,
-    start_solution = 'random',
+    start_solution = None,
     max_function_evals = 1000,
     maximize = False,
     seed = 1)
@@ -205,7 +203,7 @@ for i, g in enumerate(greedys):
             available_predictors_values = available_predictors_values,
             random_counts_by_predictors = [4, 5, 2, 20, 20, 3, 6, 6, 4],
             greedy_step = g,
-            start_solution = 'random',
+            start_solution = [v[0] for v in available_predictors_values],
             max_function_evals = 100,
             maximize = True,
             seed = s)
@@ -217,15 +215,15 @@ import pandas as pd
 
 print(pd.DataFrame({'greedy_step': greedys, 'result': results}).sort_values(['result'], ascending=False))
 
-#   greedy_step      result
-#1            2  791.757937
-#3            4  244.500094
-#5            6  207.839208
-#7            8  186.526651
-#4            5  109.705407
-#6            7  -54.430950
-#2            3 -237.923810
-#0            1 -550.011101
-#8            9 -825.131478
+#    greedy_step       result
+# 1            2  1634.172483
+# 0            1  1571.038514
+# 2            3  1424.222610
+# 3            4  1320.051325
+# 4            5  1073.783527
+# 5            6   847.873058
+# 6            7   362.113555
+# 7            8    24.729801
+# 8            9  -114.200000
 ```
 

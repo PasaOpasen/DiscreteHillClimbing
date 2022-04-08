@@ -26,7 +26,7 @@ solution, value = Hill_Climbing_descent(function = func,
     available_predictors_values = available_predictors_values,
     random_counts_by_predictors = [4, 5, 2, 20, 20, 3, 6, 6, 4],
     greedy_step = 1,
-    start_solution = 'random',
+    start_solution = None,
     max_function_evals = 1000,
     maximize = False,
     seed = 1)

@@ -35,7 +35,7 @@ for i, g in enumerate(greedys):
             available_predictors_values = available_predictors_values,
             random_counts_by_predictors = [4, 5, 2, 20, 20, 3, 6, 6, 4],
             greedy_step = g,
-            start_solution = 'random',
+            start_solution = [v[0] for v in available_predictors_values],
             max_function_evals = 100,
             maximize = True,
             seed = s)
@@ -45,15 +45,22 @@ for i, g in enumerate(greedys):
 
 import pandas as pd
 
-print(pd.DataFrame({'greedy_step': greedys, 'result': results}).sort_values(['result'], ascending=False))
+print(
+    pd.DataFrame(
+        {'greedy_step': greedys, 'result': results}
+    ).sort_values(
+        ['result'],
+        ascending=False
+     )
+)
 
-#   greedy_step      result
-#1            2  791.757937
-#3            4  244.500094
-#5            6  207.839208
-#7            8  186.526651
-#4            5  109.705407
-#6            7  -54.430950
-#2            3 -237.923810
-#0            1 -550.011101
-#8            9 -825.131478
+#    greedy_step       result
+# 1            2  1634.172483
+# 0            1  1571.038514
+# 2            3  1424.222610
+# 3            4  1320.051325
+# 4            5  1073.783527
+# 5            6   847.873058
+# 6            7   362.113555
+# 7            8    24.729801
+# 8            9  -114.200000
